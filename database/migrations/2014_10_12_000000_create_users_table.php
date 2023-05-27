@@ -20,7 +20,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
-            $table->json('user_config')->default(json_encode(['1', '1', '1']));
             $table->timestamps();
         });
     }
