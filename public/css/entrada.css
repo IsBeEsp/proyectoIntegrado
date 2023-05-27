@@ -1,0 +1,48 @@
+/* Ocultar barras de scroll en Internet Explorer, Edge y firefox*/
+textarea {
+    -ms-overflow-style: none;  /* IE y Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Ocultar barras de scroll en Opera, Safari y Chrome*/
+textarea::-webkit-scrollbar {
+    display: none;
+}
+
+.contenedor{
+  touch-action: none;
+  -ms-touch-action: none;
+  transition: transform 0.2s ease-out;
+}
+
+.animacionIzquierda{
+    animation: moveLeft .15s linear forwards;
+}
+
+@keyframes moveLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-80px); }
+}
+
+.animacionDerecha{
+    animation: moveRight .15s linear forwards;
+    z-index: 1;
+}
+
+@keyframes moveRight {
+  from { transform: translateX(-100px); }
+  to { transform: translateX(0px); }
+}
+
+.animacionCompletar{
+    animation: moveLeftATope .5s linear forwards;
+}
+
+@keyframes moveLeftATope {
+  from { transform: translateX(-100px); }
+  to { transform: translateX(-1000px); }
+}
+
+.noAnimar{
+  animation: moveLeft .15s linear reverse;
+}
