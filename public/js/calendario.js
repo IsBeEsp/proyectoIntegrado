@@ -12,21 +12,27 @@ document.addEventListener('DOMContentLoaded',() => {
 document.addEventListener('recibirEntradas', (evento) =>{
   entradasPorDia = evento.detail.paginasEntradas;
   mesActual = evento.detail.mes;
+  calcularFecha();
   generarCalendario();
 });
 
 
 // : Obtener fecha actual y calcular días del mes 
-// Obtengo la fecha actual
-const fechaActual = new Date();
-fechaActual.setMonth(mesActual);
+let fechaActual;
+let numDias;
+let primerDia;
 
-// Obtengo el número de días del mes
-const numDias = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0).getDate();
+function calcularFecha() {
+  // Obtengo la fecha actual
+  fechaActual = new Date();
+  fechaActual.setMonth(mesActual - 1);
 
-// Obtengo el primer día del mes
-const primerDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1).getDay();
+  // Obtengo el número de días del mes
+  numDias = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0).getDate();
 
+  // Obtengo el primer día del mes
+  primerDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1).getDay();
+}
 
 // : Ajustar tamaño del calendario 
 let anchuraPagina;
@@ -64,7 +70,7 @@ function aplicarBreakpoints() {
 function generarCalendario(){
   let divDias = document.getElementsByClassName("dia");
   let arrDias = Array.from(divDias);
-
+  
   // La variable del bucle representa las casillas del calendario, mientras que la variable 'dia' lleva la cuenta de por qué día del mes vamos.
   let dia = 1;
   for (let i = 0; i <42; i++){
@@ -77,7 +83,7 @@ function generarCalendario(){
       let numDia = document.createElement('div');
       numDia.innerHTML = dia;
       numDia.classList.add('top-0', 'bg-gray-300', 'font-bold', 'text-center', 'sticky', 'w-full');
-      document.getElementById('divNum-'+dia).appendChild(numDia);
+      document.getElementById('divNum-'+(i+1)).appendChild(numDia);
       
       // = Si el array de entradas del backend tiene entradas para este día, las pinto en el calendario.
       let posicionDia = dia + 1;
