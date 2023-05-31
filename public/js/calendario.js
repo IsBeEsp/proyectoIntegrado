@@ -1,37 +1,101 @@
-//: Determino el mes actual a partir de qué página del día somos redirigidos 
+//: Botones para cambiar de mes
+let btnMesAnterior = document.getElementById('btnMesAnterior');
+let btnMesSiguiente = document.getElementById('btnMesSiguiente');
+
+btnMesAnterior.addEventListener('click', evt => {
+    window.livewire.emit('cambiarMes', true);
+});
+
+btnMesSiguiente.addEventListener('click', evt => {
+    window.livewire.emit('cambiarMes', false);
+});
 
 
 // : Obtengo los datos de las entradas del mes actual 
 // Obtengo los datos enviados desde el back y guardados en el contenedor de calendario.
 let entradasPorDia;
-let mesActual;
+let fechaRecibida;
 document.addEventListener('DOMContentLoaded',() => {
   window.livewire.emit('obtenerEntradas');
 });
 
 document.addEventListener('recibirEntradas', (evento) =>{
   entradasPorDia = evento.detail.paginasEntradas;
-  mesActual = evento.detail.mes;
+  fechaRecibida = evento.detail.fecha;
   calcularFecha();
   generarCalendario();
 });
 
 
 // : Obtener fecha actual y calcular días del mes 
-let fechaActual;
 let numDias;
 let primerDia;
+const meses = [
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre'
+];
+
+const arrNumDias = [
+  31,
+  28,
+  31,
+  30,
+  31,
+  30,
+  31,
+  31,
+  30,
+  31,
+  30,
+  31
+]
 
 function calcularFecha() {
-  // Obtengo la fecha actual
-  fechaActual = new Date();
-  fechaActual.setMonth(mesActual - 1);
+  let fecha = fechaRecibida.split('T')[0];
+  let año = fecha.split('-')[0];
+  let mes = fecha.split('-')[1];
 
-  // Obtengo el número de días del mes
-  numDias = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0).getDate();
+  console.log(fecha);
+  console.log(año);
+  console.log(mes);
+
+  // Obtengo la fecha actual
+  let fechaActual = new Date(año, mes - 1);
+  fechaActual.setDate(1);
 
   // Obtengo el primer día del mes
-  primerDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1).getDay();
+  primerDia = fechaActual.getDay();
+
+  // Obtengo el número de días del mes
+  if (bisiesto(año) && mes == 2)
+    numDias = 29;
+  else
+    numDias = arrNumDias[mes - 1];
+
+  // Imprimir mes y año en el calendario
+  document.getElementById('fechaMes').innerHTML = meses[mes - 1] + " del " + fechaActual.getFullYear();
+}
+
+function bisiesto(año) {
+  if (año % 4 !== 0) {
+    return false;
+  }
+  
+  if (año % 400 === 0 || año % 100 !== 0) {
+    return true;
+  }
+  
+  return false;
 }
 
 // : Ajustar tamaño del calendario 
@@ -74,10 +138,18 @@ function generarCalendario(){
   // La variable del bucle representa las casillas del calendario, mientras que la variable 'dia' lleva la cuenta de por qué día del mes vamos.
   let dia = 1;
   for (let i = 0; i <42; i++){
-    if (i < primerDia - 1)
-      arrDias[i].classList.add('invisible');
-    else if (dia > numDias)
-      arrDias[i].classList.add('invisible');
+    if (i < primerDia - 1) {
+      if (window.innerWidth > 640)
+        arrDias[i].classList.add('invisible');
+      else
+        arrDias[i].classList.add('hidden');
+    }
+    else if (dia > numDias){
+      if (window.innerWidth > 640)
+        arrDias[i].classList.add('invisible');
+      else
+        arrDias[i].classList.add('hidden');
+    }
     else {
       // = Asigno el número de día del mes correspondiente.
       let numDia = document.createElement('div');

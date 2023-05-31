@@ -13,13 +13,14 @@ class Calendario extends Component
 {
     // $ Para la generación del calendario.
     public $book;
-    public $month;
+    public $date;
 
     protected $listeners = [
         'obtenerEntradas',
         'verDetalles',
         'update',
-        'cancelar'
+        'cancelar',
+        'cambiarMes'
     ];
 
     // $ Para la edición de entradas desde el calendario.
@@ -40,11 +41,11 @@ class Calendario extends Component
         else   
             abort('404');
 
-        // Obtener el mes a acceder.
-        if(session()->get('mesCalendario') != null)
-            $this->month = session()->get('mesCalendario');
-        else
-            $this->month = Carbon::now()->month;
+        // Obtener fecha.
+        $this->date = session()->get('fechaCalendario');
+        
+        if ($this->date == null)
+            $this->date = session()->get('fechaPagina');
 
         return view('livewire.calendario');
     }
@@ -55,7 +56,7 @@ class Calendario extends Component
         $paginas = null;
         $libro = Libro::where('id', $this->book)->first();
         if ($libro->user_id == auth()->user()->id)
-            $paginas = Pagina::where('libro_id', $this->book)->whereMonth('created_at', $this->month)->with('entradas')->get();
+            $paginas = Pagina::where('libro_id', $this->book)->whereMonth('created_at', $this->date->month)->with('entradas')->get();
 
         // Obtengo las entradas pertenecientas a cada página, y las almaceno en un array de días que luego enviaré al front.
         $paginasEntradas = [];
@@ -79,7 +80,18 @@ class Calendario extends Component
         } else
             abort('404');
 
-        $this->dispatchBrowserEvent('recibirEntradas', ['paginasEntradas' => $paginasEntradas, 'mes' => $this->month]);
+        $this->dispatchBrowserEvent('recibirEntradas', ['paginasEntradas' => $paginasEntradas, 'fecha' => $this->date]);
+    }
+
+    // : Para cambiar de mes en calendario. 
+    public function cambiarMes($anterior){
+        if ($anterior)
+            $this->date = $this->date->subMonth();
+        else
+            $this->date = $this->date->addMonth();
+
+        session(['fechaCalendario' => $this->date]);
+        return redirect()->route('calendario.show');
     }
 
     // : Funciones para editar entradas desde el calendario. 

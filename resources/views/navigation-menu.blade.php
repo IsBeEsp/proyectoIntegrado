@@ -15,13 +15,13 @@
                     <x-nav-link href="{{ route('libros.show') }}" :active="request()->routeIs('libros.show')">
                         <i class="fas fa-book mr-2"></i>{{ __('Mis diarios') }}
                     </x-nav-link>
-                    @if(session()->get('idLibro') != null)
-                    <x-nav-link href="{{ route('pagina.show') }}" :active="request()->routeIs('pagina.show')">
-                        <i class="fas fa-pager mr-2"></i>{{ __('Entradas') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('calendario.show') }}" :active="request()->routeIs('calendario.show')">
-                        <i class="fas fa-calendar mr-2"></i>{{ __('Calendario') }}
-                    </x-nav-link>
+                    @if (session()->get('idLibro') != null)
+                        <x-nav-link href="{{ route('pagina.show') }}" :active="request()->routeIs('pagina.show')">
+                            <i class="fas fa-pager mr-2"></i>{{ __('Entradas') }}
+                        </x-nav-link>
+                        <x-nav-link href="{{ route('calendario.show') }}" :active="request()->routeIs('calendario.show')">
+                            <i class="fas fa-calendar mr-2"></i>{{ __('Calendario') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -159,6 +159,14 @@
             <x-nav-link href="{{ route('libros.show') }}" :active="request()->routeIs('libros.show')">
                 <i class="fas fa-book mr-2"></i>{{ __('Mis diarios') }}
             </x-nav-link>
+            @if (session()->get('idLibro') != null)
+                <x-nav-link href="{{ route('pagina.show') }}" :active="request()->routeIs('pagina.show')">
+                    <i class="fas fa-pager mr-2"></i>{{ __('Entradas') }}
+                </x-nav-link>
+                <x-nav-link href="{{ route('calendario.show') }}" :active="request()->routeIs('calendario.show')">
+                    <i class="fas fa-calendar mr-2"></i>{{ __('Calendario') }}
+                </x-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

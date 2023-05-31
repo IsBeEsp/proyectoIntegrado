@@ -1,5 +1,10 @@
 <div>
-    <div class="w-full text-4xl font-bold my-4 py-4 text-center">Calendario</div>
+    <div class="w-full text-4xl font-bold mt-4 mb-2 text-center">Calendario</div>
+    <div id="fechaMes" class="w-full text-2xl font-semibold  text-center"></div>
+    <div class="flex justify-between w-2/3 my-4 items-center mx-auto">
+        <button id="btnMesAnterior" class="bg-gray-500 hover:bg-gray-700 text-white text-xl font-bold py-2 px-4 rounded"> << <span class="md:inline hidden">Mes anterior</span></button>
+        <button id="btnMesSiguiente" class="bg-gray-500 hover:bg-gray-700 text-white text-xl font-bold py-2 px-4 rounded"><span class="md:inline hidden">Mes siguiente</span> >> </button>
+    </div>
     <div id="calendar-container" class="w-3/4 h-max mx-auto" wire:ignore>
         <div class="semana grid grid-cols-7 gap-4 mb-4 mb-4">
             <div id="1" class="dia flex flex-col w-full bg-gray-100 h-48 shadow-lg relative overflow-y-scroll"><div id="divNum-1" class="order-first sticky top-0"></div></div>
