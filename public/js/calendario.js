@@ -26,48 +26,17 @@ document.addEventListener('recibirEntradas', (evento) =>{
   generarCalendario();
 });
 
-
 // : Obtener fecha actual y calcular días del mes 
 let numDias;
 let primerDia;
-const meses = [
-  'Enero',
-  'Febrero',
-  'Marzo',
-  'Abril',
-  'Mayo',
-  'Junio',
-  'Julio',
-  'Agosto',
-  'Septiembre',
-  'Octubre',
-  'Noviembre',
-  'Diciembre'
-];
 
-const arrNumDias = [
-  31,
-  28,
-  31,
-  30,
-  31,
-  30,
-  31,
-  31,
-  30,
-  31,
-  30,
-  31
-]
+const meses = [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+const arrNumDias = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 function calcularFecha() {
   let fecha = fechaRecibida.split('T')[0];
   let año = fecha.split('-')[0];
   let mes = fecha.split('-')[1];
-
-  console.log(fecha);
-  console.log(año);
-  console.log(mes);
 
   // Obtengo la fecha actual
   let fechaActual = new Date(año, mes - 1);
@@ -162,7 +131,7 @@ function generarCalendario(){
       if (entradasPorDia.hasOwnProperty(posicionDia)){
         entradasPorDia[posicionDia].forEach(entrada => {
           let divEntrada = document.createElement('div');
-    
+          console.log(entrada);
           let idEntrada = entrada.split('-')[0];
           let colorEntrada = entrada.split('-')[1];
           let tagEntrada = entrada.split('-')[2];
@@ -188,11 +157,9 @@ function generarCalendario(){
 // : Funcionalidades para la edición de entrada desde el calendario. 
 
 document.addEventListener('modal-abierto', (evt) => {
-  console.log(evt.detail);
   document.getElementById('divBtnGestor').innerHTML = `<button id='btnGestor' class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full"><i class="fas fa-tag"></i> Gestionar tags</button>`;
   
   document.getElementById('btnGestor').addEventListener('click', evt2 => {
-    console.log(evt.detail);
     window.livewire.emit('cancelar');
     window.livewire.emit('toggleGestor', true, evt.detail);
   });

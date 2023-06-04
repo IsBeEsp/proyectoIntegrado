@@ -94,7 +94,7 @@
             <div class="flex flex-row-reverse w-full">
                 <button wire:click="update()"
                 class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full">
-                Ver en la página del día <i class="fa-solid fa-arrow-right"></i>
+                <i class="fa-solid fa-save"></i> Guardar 
                 </button>
                 <button  wire:click="cancelar()"
                 class="mr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full">

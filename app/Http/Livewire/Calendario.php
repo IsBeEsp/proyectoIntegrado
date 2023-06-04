@@ -52,7 +52,7 @@ class Calendario extends Component
 
     public function obtenerEntradas()
     {
-        // Obtengo todas las páginas pertenecientas al libro y mes en concreto.
+        // Obtengo todas las páginas pertenecientes al libro y mes en concreto.
         $paginas = null;
         $libro = Libro::where('id', $this->book)->first();
         if ($libro->user_id == auth()->user()->id)
@@ -66,7 +66,7 @@ class Calendario extends Component
                 foreach ($pagina->entradas as $entrada) {
                     
                     if ($entrada->tags != null){
-                        $tag = $entrada->tags->first->toArray();
+                        $tag = $this->obtenerPrimeraTag($entrada->tags);
                         
                         $completada = ($entrada->compleated_at != null) ? true : false;
                         
@@ -81,6 +81,24 @@ class Calendario extends Component
             abort('404');
 
         $this->dispatchBrowserEvent('recibirEntradas', ['paginasEntradas' => $paginasEntradas, 'fecha' => $this->date]);
+    }
+
+    private function obtenerPrimeraTag($tags){
+        $primeraTag = true;
+        $tagEscogida = null;
+        
+        foreach($tags as $tag){
+            if ($primeraTag){
+                $tagEscogida = $tag;
+                $primeraTag = false;
+            }
+
+            if ($tag->pivot->orden < $tagEscogida->pivot->orden){
+                $tagEscogida = $tag;
+            }
+        }
+
+        return $tagEscogida;
     }
 
     // : Para cambiar de mes en calendario. 
