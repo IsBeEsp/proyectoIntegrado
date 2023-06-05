@@ -127,7 +127,7 @@ function generarCalendario(){
       document.getElementById('divNum-'+(i+1)).appendChild(numDia);
       
       // = Si el array de entradas del backend tiene entradas para este día, las pinto en el calendario.
-      let posicionDia = dia + 1;
+      let posicionDia = dia-2;
       if (entradasPorDia.hasOwnProperty(posicionDia)){
         entradasPorDia[posicionDia].forEach(entrada => {
           let divEntrada = document.createElement('div');
