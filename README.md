@@ -1,13 +1,23 @@
-![imagen](https://github.com/IsBeEsp/proyectoIntegrado/assets/84902245/1af9f3f4-245c-4394-83d8-edf4a62f8f10)
-
 # Kuaderbook - Gestiona y personaliza tareas
 
-Con kuaderbook podrás:
+![imagen](https://github.com/IsBeEsp/proyectoIntegrado/assets/84902245/1af9f3f4-245c-4394-83d8-edf4a62f8f10)
 
-- Crear infinidad de libros de tareas (Kuaderbooks) con nombres y colores personalizados.
-- Añadir tantas tareas como queramos a nuestros libros.
-- Crear eitquetas para clasificar nuestras entradas como queramos.
-- Visualizar el desarrollo y compleción de tareas a lo largo de los días en un calendario.
+## Con kuaderbook podrás:
+
+### Crear infinidad de libros de tareas (Kuaderbooks) con nombres y colores personalizados.
+
+![Imagen_Ejemplo_1](https://github.com/IsBeEsp/proyectoIntegrado/assets/84902245/ff199ba6-b65b-42a0-972d-a752a0ad4905)
+
+### Añadir tantas tareas como queramos a nuestros libros y crear eitquetas para clasificar nuestras entradas como queramos.
+
+![Imagen_Ejemplo_2](https://github.com/IsBeEsp/proyectoIntegrado/assets/84902245/1c6e191c-132c-4f3c-a19e-5e03d867459c)
+
+### Visualizar el desarrollo y compleción de tareas a lo largo de los días en un calendario.
+
+![Imagen_Ejemplo_3](https://github.com/IsBeEsp/proyectoIntegrado/assets/84902245/3b86807b-a300-42c9-9fce-9d651a8346c1)
+
+
+***
 
 **Versión Alfa 1.0**
 
